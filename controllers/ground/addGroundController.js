@@ -77,6 +77,25 @@ exports.addGround = async(req, res) => {
                 }
             }
 
+
+            let fc = []
+            let facility= req.body.facilities
+            
+            for (let i = 1; i < facility.length; i++) {
+                const f = facility[i];
+                if(f=='"'){
+                    let j=i+1;
+                    let tmp="";
+                    while(facility[j]!=='"'){
+                        tmp+=facility[j];
+                        j++;
+                    }
+                    i=j;
+                    fc.push(tmp);
+                }
+            }
+            console.log("facilities...",fc);
+
             let pricearr = []
             let price= req.body.price
             
@@ -104,6 +123,7 @@ exports.addGround = async(req, res) => {
                 ...data,
                 price:pricearr,
                 sport_type: sp,
+                facilities: fc,
                 ownerid: req.user._id,
                 photos: p_array
             }

@@ -99,6 +99,7 @@ exports.getGrounds = async(req, res) => {
                 rating:g1[i].rating,
                 photos:g1[i].photos,
                 status:g1[i].status,
+                price:g1[i].price,
             }
             final.push(tmp);
         }

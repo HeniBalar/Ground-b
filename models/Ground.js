@@ -77,6 +77,9 @@ const groundSchema = new mongoose.Schema({
     },
     sport_type:[{
         type: String
+    }],
+    facilities:[{
+        type: String
     }]
 })
 
