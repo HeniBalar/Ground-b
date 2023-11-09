@@ -94,26 +94,26 @@ exports.addGround = async(req, res) => {
                     fc.push(tmp);
                 }
             }
-            console.log("facilities...",fc);
+            console.log(fc);
 
-            let pricearr = []
-            let price= req.body.price
+            // let pricearr = []
+            // let price= req.body.price
             
-            for (let i = 1; i < price.length; i++) {
-                const s = price[i];
-                if(s=='"'){
-                    let j=i+1;
-                    let tmp="";
-                    while(price[j]!=='"'){
-                        tmp+=price[j];
-                        j++;
-                    }
-                    i=j;
-                    pricearr.push(tmp);
-                }
-            }
+            // for (let i = 1; i < price.length; i++) {
+            //     const s = price[i];
+            //     if(s=='"'){
+            //         let j=i+1;
+            //         let tmp="";
+            //         while(price[j]!=='"'){
+            //             tmp+=price[j];
+            //             j++;
+            //         }
+            //         i=j;
+            //         pricearr.push(tmp);
+            //     }
+            // }
             
-            console.log(pricearr);
+            // console.log(pricearr);
           
                 
            
@@ -121,7 +121,7 @@ exports.addGround = async(req, res) => {
 
             let temp = {
                 ...data,
-                price:pricearr,
+                // price:pricearr,
                 sport_type: sp,
                 facilities: fc,
                 ownerid: req.user._id,

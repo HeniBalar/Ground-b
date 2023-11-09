@@ -33,10 +33,10 @@ const groundSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    price:[{
+    price:{
         type: String,
         required: true
-    }],
+    },
     address:{
         type: String,
         required: true
