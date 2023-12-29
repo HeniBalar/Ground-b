@@ -45,6 +45,10 @@ const groundSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    rulesandregulation:{
+        type: String,
+        required: true
+    },
     rating:{
         type: String,
         default: 0

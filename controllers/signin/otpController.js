@@ -27,6 +27,7 @@ exports.sendOTP = async(req,res) => {
         }else{
             msg = error.message
         }
+        console.log("error",error)
         res.send({error: msg,code:code})
     }
 

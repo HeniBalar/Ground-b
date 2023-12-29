@@ -129,6 +129,7 @@ exports.addGround = async(req, res) => {
             }
 
             const newGround = new Ground(temp)
+            console.log("newGround",newGround)
             await newGround.save()
 
             no_data = {
