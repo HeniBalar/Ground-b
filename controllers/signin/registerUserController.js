@@ -12,9 +12,7 @@ exports.registerUser = async(req,res) => {
         if(user){
             return res.status(405).send({message:"user already exists ,Please login"})
         } else {
-
-       const np =await bcrypt.hash(password,10);
-   
+        const np =await bcrypt.hash(password,10);
         const data={
             name,
             email,
