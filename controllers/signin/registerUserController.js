@@ -11,7 +11,7 @@ exports.registerUser = async(req,res) => {
 
         if(user){
             return res.status(405).send({message:"user already exists ,Please login"})
-        }
+        } else {
 
        const np =await bcrypt.hash(password,10);
    
@@ -29,7 +29,7 @@ exports.registerUser = async(req,res) => {
         let token=await user.generateAuthToken()
         console.log("created user",user)
         res.status(201).send({user:user,token:token})
-
+    }
 
     } catch (error) {
         res.status(400).send({error: error.message})
