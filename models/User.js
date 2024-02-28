@@ -72,7 +72,13 @@ const userSchema = new mongoose.Schema({
     }],
     status:{
         type: String
-    }
+    },
+    wishlist: [{
+        ground_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Ground'
+        }
+    }],
 })
 
 userSchema.methods.generateAuthToken = async function() {

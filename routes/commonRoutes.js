@@ -20,6 +20,8 @@ const { editUser } = require("../controllers/signin/editUserController");
 const { editUserPicture } = require("../controllers/signin/editUserPictureController");
 const multer = require('multer');
 const { paymentGetway } = require("../controllers/signin/paymentGetwayController");
+const { addWishList, removeWishList, getAllWishList} = require("../controllers/signin/wishListUser");
+
 const storage = multer.diskStorage({})
 const upload = multer({ storage })
 
@@ -72,4 +74,8 @@ commonRouter.get("/logoutall", auth, logoutAll)
 
 commonRouter.delete("/deleteaccount", auth, deleteAccount)
 
+//add favourite ground
+commonRouter.post('/addWishList', auth, addWishList)
+commonRouter.post('/removeWishList', auth, removeWishList)
+commonRouter.get('/getAllWishList', auth, getAllWishList)
 module.exports = commonRouter;
