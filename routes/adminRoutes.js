@@ -2,6 +2,7 @@ const { Router } = require("express")
 const { adminauth } = require("../middleware/adminauth")
 const { adminSignup } = require("../controllers/admin/adminSignupController")
 const { adminLogin } = require("../controllers/admin/adminLoginController");
+const { forgotPassword } = require("../controllers/admin/adminForgetPasswordController.js");
 const { dashboard } = require("../controllers/admin/adminDashboardController");
 const { adminShowUsers } = require("../controllers/admin/adminShowUsersController");
 const { adminShowOwners } = require("../controllers/admin/adminShowOwnersControllers");
@@ -16,6 +17,7 @@ const adminRouter = Router();
 
 adminRouter.post("/adminsignup", adminSignup)
 adminRouter.post("/adminlogin", adminLogin)
+adminRouter.post("/forgotPassword", forgotPassword)
 
 adminRouter.get("/dashboard", dashboard)
 adminRouter.post("/adminshowusers", adminShowUsers)

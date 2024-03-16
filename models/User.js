@@ -92,6 +92,14 @@ userSchema.methods.generateAuthToken = async function() {
     return token
 }
 
+userSchema.statics.getUserInfo = async function(email) {
+    try {
+      return await this.findOne({ email });
+    } catch (error) {
+      throw new Error("Error fetching user info");
+    }
+  };
+
 const User = mongoose.model('User',userSchema)
 
 module.exports = User
