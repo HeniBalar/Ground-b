@@ -1,24 +1,21 @@
 
 
 const User = require("../../models/User");
-const bcrypt=require('bcryptjs')
 
 exports.registerUser = async(req,res) => {
     try {
-        const {name,mobile,email,password,usertype} = req.body;
+        const {first_name,last_name,mobile,email,usertype} = req.body;
 
-        let user = await User.findOne({email:email, usertype:usertype})
-
+        // let user = await User.findOne({email:email, usertype:usertype})
+        let user = await User.findOne({mobile:mobile, usertype:usertype})
         if (user) {
             console.log("user already exists ,Please login")
             return res.status(405).send({message:"user already exists ,Please login"})
         } else {
-        const np =await bcrypt.hash(password,10);
-
         const data={
-            name,
+            first_name,
+            last_name,
             email,
-            password:np,
             mobile,
             usertype
         }

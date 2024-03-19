@@ -103,14 +103,6 @@ adminSchema.statics.findByCredentials = async(email, password) => {
     return admin
 }
 
-adminSchema.statics.getAdminInfo = async function(email) {
-    try {
-      return await this.findOne({ email });
-    } catch (error) {
-      throw new Error("Error fetching user info");
-    }
-  };
-
 adminSchema.statics.checkAdmin = async(data) =>{
     const admin = await Admin.findOne({email: data})
     return admin ? true : false

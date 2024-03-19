@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
     socialid:{
         type: String,
     },
-    name:{
+    first_name:{
+        type: String,
+        default: ""
+    },
+    last_name:{
         type: String,
         default: ""
     },
@@ -31,9 +35,6 @@ const userSchema = new mongoose.Schema({
               throw new Error("Enter a valid email address");
             }
         }
-    },
-    password:{
-        type:String
     },
     profile: {
         pid:{
@@ -92,13 +93,6 @@ userSchema.methods.generateAuthToken = async function() {
     return token
 }
 
-userSchema.statics.getUserInfo = async function(email) {
-    try {
-      return await this.findOne({ email });
-    } catch (error) {
-      throw new Error("Error fetching user info");
-    }
-  };
 
 const User = mongoose.model('User',userSchema)
 

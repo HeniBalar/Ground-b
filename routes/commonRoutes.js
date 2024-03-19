@@ -15,8 +15,7 @@ const { setFCMToken } = require("../controllers/fcmTokenController");
 const { getBookings } = require("../controllers/bookingController");
 const { getSportsCategory } = require("../controllers/sportsCategoryController");
 const { registerUser } = require("../controllers/signin/registerUserController");
-const { loginUser } = require("../controllers/signin/loginUserController");
-const { forgotPassword } = require("../controllers/signin/forgetPasswordController")
+const { loginUser , verifyOTPForUser } = require("../controllers/signin/loginUserController");
 const { editUser } = require("../controllers/signin/editUserController");
 const { editUserPicture } = require("../controllers/signin/editUserPictureController");
 const multer = require('multer');
@@ -47,7 +46,7 @@ commonRouter.post("/verifyotp/:userType", verifyOTP)
 //new apis
 commonRouter.post("/register",registerUser)
 commonRouter.post('/login',loginUser)
-commonRouter.post('/forgotpassword',forgotPassword)
+commonRouter.post('/verifyOTPForUser/:userType',verifyOTPForUser)
 commonRouter.post('/editprofile',editUser)
 commonRouter.post('/editprofilepicture',upload.single('profile'),editUserPicture)
 commonRouter.post('/payment-gateway',paymentGetway)  //---
