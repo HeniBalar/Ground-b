@@ -30,7 +30,7 @@ exports.adminShowUsers = async(req, res) => {
             query = {$and : temp}
         }
 
-        const users = await User.find(query).select("name mobile noofbooking status createdat profile").sort({"createdat":"asc"});
+        const users = await User.find(query).select("first_name last_name mobile noofbooking status createdat profile").sort({"createdat":"asc"});
         res.status(201).send({users})
         console.log("AASS",users.length)
 
@@ -38,4 +38,38 @@ exports.adminShowUsers = async(req, res) => {
         res.send({error: error.message})
     }
 
+}
+
+exports.adminEditUsers = async(req, res) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId);
+        if (!user) {
+          res.send('user does not exist');
+          return;
+        } else {
+        let updatedUser = await User.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          {
+            $set: {
+              first_name : req.body.first_name  || user.first_name,
+              last_name : req.body.last_name  || user.last_name,
+              mobile: req.body.mobile || user.mobile,
+              email: req.body.email || user.email,
+              usertype: req.body.usertype || user.usertype,
+              usertype: req.body.status || user.status,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+        res.send(updatedUser);
+        }
+      } catch (error) {
+        console.log("An error occurred while processing the request.",error)
+        res.send({error: error.message});
+      }
 }

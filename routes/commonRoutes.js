@@ -16,6 +16,7 @@ const { getBookings } = require("../controllers/bookingController");
 const { getSportsCategory } = require("../controllers/sportsCategoryController");
 const { registerUser } = require("../controllers/signin/registerUserController");
 const { loginUser , verifyOTPForUser } = require("../controllers/signin/loginUserController");
+const { getUser } = require("../controllers/signin/getUserController");
 const { editUser } = require("../controllers/signin/editUserController");
 const { editUserPicture } = require("../controllers/signin/editUserPictureController");
 const multer = require('multer');
@@ -30,7 +31,6 @@ const commonRouter = Router();
 
 commonRouter.get("/", (req,res)=>{
     try {
-        console.log("aaaaGround Backend")
         res.send('Ground Backend')
         
     } catch (error) {
@@ -46,6 +46,7 @@ commonRouter.post("/verifyotp/:userType", verifyOTP)
 //new apis
 commonRouter.post("/register",registerUser)
 commonRouter.post('/login',loginUser)
+commonRouter.get('/getUser/:id',getUser)
 commonRouter.post('/verifyOTPForUser/:userType',verifyOTPForUser)
 commonRouter.post('/editprofile',editUser)
 commonRouter.post('/editprofilepicture',upload.single('profile'),editUserPicture)

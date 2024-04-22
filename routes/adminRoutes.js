@@ -3,8 +3,8 @@ const { adminauth } = require("../middleware/adminauth")
 const { adminSignup } = require("../controllers/admin/adminSignupController")
 const { adminLogin } = require("../controllers/admin/adminLoginController");
 const { dashboard } = require("../controllers/admin/adminDashboardController");
-const { adminShowUsers } = require("../controllers/admin/adminShowUsersController");
-const { adminShowOwners } = require("../controllers/admin/adminShowOwnersControllers");
+const { adminShowUsers, adminEditUsers } = require("../controllers/admin/adminShowUsersController");
+const { adminShowOwners, adminEditOwners } = require("../controllers/admin/adminShowOwnersControllers");
 const { logoutAll } = require("../controllers/admin/adminLogoutController");
 const { adminRandR } = require("../controllers/admin/adminRandRController");
 const { newGroundRequest } = require("../controllers/admin/newGroundRequestController.js");
@@ -18,6 +18,8 @@ adminRouter.post("/adminsignup", adminSignup)
 adminRouter.post("/adminlogin", adminLogin)
 
 adminRouter.get("/dashboard", dashboard)
+adminRouter.post("/admineditusers/:id", adminEditUsers)
+adminRouter.post("/admineditowners/:id", adminEditOwners)
 adminRouter.post("/adminshowusers", adminShowUsers)
 adminRouter.post("/adminshowowners", adminShowOwners)
 adminRouter.post("/adminreviewandrating", adminRandR)  //---

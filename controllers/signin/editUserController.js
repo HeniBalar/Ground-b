@@ -37,20 +37,6 @@ exports.editUser = async(req,res) => {
         
         res.status(201).send(nuser)
 
-
-
-        
-      
-
-       
-       
-
-
-       
-
-
-      
-        
     } catch (error) {
         res.status(201).status({error: error.message});
     }
