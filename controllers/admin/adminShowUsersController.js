@@ -59,7 +59,7 @@ exports.adminEditUsers = async(req, res) => {
               mobile: req.body.mobile || user.mobile,
               email: req.body.email || user.email,
               usertype: req.body.usertype || user.usertype,
-              usertype: req.body.status || user.status,
+              status: req.body.status || user.status,
             },
           },
           {
