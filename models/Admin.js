@@ -9,6 +9,7 @@ const adminSchema = new mongoose.Schema({
 
     name:{
         type: String,
+        required: true,
         validate(value) {
             if (!validator.isLength(value,{min:3})) {
               throw new Error("Name should have atleast 3 characters");
@@ -17,6 +18,7 @@ const adminSchema = new mongoose.Schema({
     },
     mobile:{
         type: String,
+        required: true,
         validate(value) {
             if(!validator.isNumeric(value)){
                 throw new Error("Mobile No should have only numeric characters");     
@@ -27,6 +29,7 @@ const adminSchema = new mongoose.Schema({
     },
     email:{
         type: String,
+        required: true,
         validate(value) {
             if (!validator.isEmail(value)) {
               throw new Error("Enter a valid email address");
@@ -34,6 +37,24 @@ const adminSchema = new mongoose.Schema({
         }
     },
     password:{
+        type: String,
+        required: true,
+        validate(value) {
+            if (!validator.isLength(value, { min: 8 })) {
+                throw new Error("Password should have at least 8 characters");
+            }else if (!/[A-Z]/.test(value)) {
+                throw new Error("Password should have at least one uppercase letter");
+            }else if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                throw new Error("Password should have at least one special character");
+            }else if (!/[0-9]/.test(value)) {
+                throw new Error("Password should have at least one digit");
+            }
+        }
+    },
+    otp: {
+        type: String
+    },
+    otpExpires: {
         type: String
     },
     profile: {
