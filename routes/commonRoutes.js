@@ -22,6 +22,13 @@ const { editUserPicture } = require("../controllers/signin/editUserPictureContro
 const multer = require('multer');
 const { paymentGetway } = require("../controllers/signin/paymentGetwayController");
 const { addWishList, removeWishList, getAllWishList} = require("../controllers/signin/wishListUser");
+const { forgotPassword } = require("../controllers/signin/forgetPasswordController");
+const { userEmailVerification, userVerifyOtp } = require("../controllers/signin/userEmailVerifyController");
+const { showUpcomingBooking } = require("../controllers/showUpcomingBooking");
+const { showPendingBooking } = require("../controllers/showPendingBooking");
+const { showComplatedBooking } = require("../controllers/showComplatedBooking");
+const { getToppicsGround } = require("../controllers/ground/getToppicsGround");
+const { getSuperTrufs } = require("../controllers/ground/getSuperTruf");
 
 const storage = multer.diskStorage({})
 const upload = multer({ storage })
@@ -46,6 +53,9 @@ commonRouter.post("/verifyotp/:userType", verifyOTP)
 //new apis
 commonRouter.post("/register",registerUser)
 commonRouter.post('/login',loginUser)
+commonRouter.post('/useremailverification', userEmailVerification)
+commonRouter.post('/forgotuserpassword', forgotPassword)
+commonRouter.post('/verifyuserotp', userVerifyOtp)
 commonRouter.get('/getUser/:id',getUser)
 commonRouter.post('/verifyOTPForUser/:userType',verifyOTPForUser)
 commonRouter.post('/editprofile',editUser)
@@ -59,9 +69,14 @@ commonRouter.get("/auth/apple/:userType/:idToken", authApple)   //---
 commonRouter.get("/auth/facebook/:userType/:idToken", authFacebook)   //---
 
 commonRouter.post("/getgrounds", getGrounds)
+commonRouter.post("/toppicsgrounds", getToppicsGround)
+commonRouter.post("/supertrufs", getSuperTrufs)
 commonRouter.get("/getsportscategories", getSportsCategory)
 
-commonRouter.get("/getbookings", auth, getBookings)
+commonRouter.get("/getbookings", getBookings)
+commonRouter.get('/upcomingbooking', showUpcomingBooking)
+commonRouter.get('/pendingbooking', showPendingBooking)
+commonRouter.get('/comaplatedbooking', showComplatedBooking)
 
 commonRouter.post("/changelang",changeLanguage)
 commonRouter.post("/setfcmtoken", auth, setFCMToken)
