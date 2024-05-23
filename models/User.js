@@ -36,6 +36,27 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    password:{
+        type: String,
+        required: true,
+        validate(value) {
+            if (!validator.isLength(value, { min: 8 })) {
+                throw new Error("Password should have at least 8 characters");
+            }else if (!/[A-Z]/.test(value)) {
+                throw new Error("Password should have at least one uppercase letter");
+            }else if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                throw new Error("Password should have at least one special character");
+            }else if (!/[0-9]/.test(value)) {
+                throw new Error("Password should have at least one digit");
+            }
+        }
+    },
+    otp: {
+        type: String
+    },
+    otpExpires: {
+        type: Date
+    },
     profile: {
         pid:{
           type: String,
