@@ -10,12 +10,17 @@ const { adminRandR } = require("../controllers/admin/adminRandRController");
 const { newGroundRequest } = require("../controllers/admin/newGroundRequestController.js");
 const { adminNotifications } = require("../controllers/admin/adminNotificationController");
 const { adminDeleteAccount } = require("../controllers/admin/adminDeleteController");
+const { adminForgotPassword } = require("../controllers/admin/adminForgetPasswordController");
+const { adminEmailVerification, adminVerifyOtp } = require("../controllers/admin/adminEmailVerification");
 
 const adminRouter = Router();
 
 
 adminRouter.post("/adminsignup", adminSignup)
 adminRouter.post("/adminlogin", adminLogin)
+adminRouter.post("/adminemailverification", adminEmailVerification)
+adminRouter.post('/adminforgotpassword', adminForgotPassword)
+adminRouter.post('/verifyadminotp', adminVerifyOtp)
 
 adminRouter.get("/dashboard", dashboard)
 adminRouter.post("/admineditusers/:id", adminEditUsers)
