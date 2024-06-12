@@ -48,7 +48,7 @@ exports.loginUser = async (req, res) => {
         if (otpResult.status !== "pending") {
             return res.status(500).send({ message: "Failed to send OTP" });
         }
-
+        console.log("OTP sent successfully")
         res.status(200).send({ message: "OTP sent successfully" });
     } catch (error) {
         res.status(500).send({ error: error.message });

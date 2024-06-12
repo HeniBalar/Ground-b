@@ -16,7 +16,6 @@ dotenv.config({path:"config/config.env"})
 exports.addGround = async(req, res) => {
 
     try{
-
         if(req.user.usertype==="owner"){
 
             // changes in add ground api (add price and unit price and the option to add multiple prices)
