@@ -10,6 +10,12 @@ const { adminRandR } = require("../controllers/admin/adminRandRController");
 const { newGroundRequest } = require("../controllers/admin/newGroundRequestController.js");
 const { adminNotifications } = require("../controllers/admin/adminNotificationController");
 const { adminDeleteAccount } = require("../controllers/admin/adminDeleteController");
+const { getallUsers } = require("../controllers/admin/adminGetallUsers.js");
+const { userActivity, getOneuserActivity } = require("../controllers/admin/adminshowUseractivity.js");
+const { churnRate } = require("../controllers/admin/adminShowChurnrate.js");
+const { userDemographice } = require("../controllers/admin/adminGetuserDemographics.js");
+const { auth } = require("../middleware/auth.js");
+const { totalBooking, bookingTrends, bookingValue } = require("../controllers/admin/adminShowbooking.js");
 
 const adminRouter = Router();
 
@@ -32,5 +38,13 @@ adminRouter.get("/adminlogout", adminauth, logoutAll)
 
 adminRouter.delete("/admindelete/:id", adminDeleteAccount) //--
 
+adminRouter.post('/admingetallusers', getallUsers)
+adminRouter.post('/useractivity/:userid', getOneuserActivity)
+adminRouter.post('/adminshowuseractivity', userActivity)
+adminRouter.post('/churnrate', churnRate)
+adminRouter.post('/userdemographice', auth, userDemographice)
+adminRouter.post('/totalbooking', totalBooking)
+adminRouter.post('/bookingtrend', bookingTrends)
+adminRouter.post('/bookingvalue', bookingValue)
 
 module.exports = adminRouter;
