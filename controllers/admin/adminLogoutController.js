@@ -15,7 +15,7 @@ const Admin = require('../../models/Admin')
 exports.logoutAll = async(req,res) =>{
     try{
         await Admin.findByIdAndUpdate({_id: req.admin._id},{tokens: [], lasttimeloggedout: new Date()})
-        res.sendStatus(200)
+        res.status(200).send({ msg: "Admin Logout Successfully"})  
     }catch(error){
         res.send({error: error.message})
     }   
