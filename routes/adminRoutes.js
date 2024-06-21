@@ -16,6 +16,7 @@ const { churnRate } = require("../controllers/admin/adminShowChurnrate.js");
 const { userDemographice } = require("../controllers/admin/adminGetuserDemographics.js");
 const { auth } = require("../middleware/auth.js");
 const { totalBooking, bookingTrends, bookingValue } = require("../controllers/admin/adminShowbooking.js");
+const { topPerformingground, underPerformingground } = require("../controllers/admin/adminShowgroundPerforming.js");
 
 const adminRouter = Router();
 
@@ -23,28 +24,34 @@ const adminRouter = Router();
 adminRouter.post("/adminsignup", adminSignup)
 adminRouter.post("/adminlogin", adminLogin)
 
-adminRouter.get("/dashboard", dashboard)
-adminRouter.post("/admineditusers/:id", adminEditUsers)
-adminRouter.post("/admineditowners/:id", adminEditOwners)
-adminRouter.post("/adminshowusers", adminShowUsers)
-adminRouter.post("/adminshowowners", adminShowOwners)
-adminRouter.post("/adminreviewandrating", adminRandR)  //---
-adminRouter.post("/adminnotifications", adminNotifications)   //---
+adminRouter.get("/dashboard", adminauth, dashboard)
+adminRouter.post("/admineditusers/:id", adminauth, adminEditUsers)
+adminRouter.post("/admineditowners/:id", adminauth, adminEditOwners)
+adminRouter.post("/adminshowusers", adminauth, adminShowUsers)
+adminRouter.post("/adminshowowners", adminauth, adminShowOwners)
+adminRouter.post("/adminreviewandrating", adminauth, adminRandR)  //---
+adminRouter.post("/adminnotifications", adminauth, adminNotifications)   //---
 
-adminRouter.post("/verifiedground", newGroundRequest)    //---
+adminRouter.post("/verifiedground", adminauth, newGroundRequest)    //---
 
 //adminRouter.get("/adminlogoutall", adminauth, logoutAll)
 adminRouter.get("/adminlogout", adminauth, logoutAll)
 
-adminRouter.delete("/admindelete/:id", adminDeleteAccount) //--
+adminRouter.delete("/admindelete/:id", adminauth, adminDeleteAccount) //--
 
-adminRouter.post('/admingetallusers', getallUsers)
+adminRouter.post('/admingetallusers', adminauth, getallUsers)
+
 adminRouter.post('/useractivity/:userid', getOneuserActivity)
 adminRouter.post('/adminshowuseractivity', userActivity)
+
 adminRouter.post('/churnrate', churnRate)
-adminRouter.post('/userdemographice', auth, userDemographice)
+adminRouter.post('/userdemographice', userDemographice)
+
 adminRouter.post('/totalbooking', totalBooking)
 adminRouter.post('/bookingtrend', bookingTrends)
 adminRouter.post('/bookingvalue', bookingValue)
+
+adminRouter.post('/topperforming', topPerformingground)
+adminRouter.post('/underperforming', underPerformingground)
 
 module.exports = adminRouter;
