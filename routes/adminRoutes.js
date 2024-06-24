@@ -16,7 +16,7 @@ const { churnRate } = require("../controllers/admin/adminShowChurnrate.js");
 const { userDemographice } = require("../controllers/admin/adminGetuserDemographics.js");
 const { auth } = require("../middleware/auth.js");
 const { totalBooking, bookingTrends, bookingValue } = require("../controllers/admin/adminShowbooking.js");
-const { topPerformingground, underPerformingground } = require("../controllers/admin/adminShowgroundPerforming.js");
+const { topPerformingground, underPerformingground, venueRating } = require("../controllers/admin/adminShowgroundPerforming.js");
 
 const adminRouter = Router();
 
@@ -39,7 +39,7 @@ adminRouter.get("/adminlogout", adminauth, logoutAll)
 
 adminRouter.delete("/admindelete/:id", adminauth, adminDeleteAccount) //--
 
-adminRouter.post('/admingetallusers', adminauth, getallUsers)
+adminRouter.post('/admingetallusers', getallUsers)
 
 adminRouter.post('/useractivity/:userid', getOneuserActivity)
 adminRouter.post('/adminshowuseractivity', userActivity)
@@ -53,5 +53,6 @@ adminRouter.post('/bookingvalue', bookingValue)
 
 adminRouter.post('/topperforming', topPerformingground)
 adminRouter.post('/underperforming', underPerformingground)
+adminRouter.post('/venuerating', venueRating)
 
 module.exports = adminRouter;

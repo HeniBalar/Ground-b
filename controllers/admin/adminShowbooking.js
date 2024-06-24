@@ -5,9 +5,9 @@ exports.totalBooking = async (req, res) => {
     try {
 
         const booking = await Booking.find({})
-        console.log('bookig/...', booking)
+        // console.log('bookig/...', booking)
         
-        return res.status(200).send({ message: "OK" })
+        return res.status(200).send({ message: "OK", booking })
     } catch (error) {
         console.log('error/...', error)
         return res.status(500).send({ error: error.message })
@@ -16,43 +16,36 @@ exports.totalBooking = async (req, res) => {
 
 exports.bookingTrends = async (req, res) => {
     try {
-    
-        const booking = await Booking.find({})
-        let gID = []
-        booking.forEach((item) => {
-            gID.push(item.groundid)
-        })
-        const uniqueObject = {};
-        gID.forEach(item => {
-            uniqueObject[item] = true;
-        });
-        const groundId = Object.keys(uniqueObject)
-        console.log('groundid/...', groundId)
-        const ground = await Ground.find({})
+        const bookings = await Booking.find({});
+        let groundIds = bookings.map(item => item.groundid);
 
-        ground.forEach((item) => {
-            if(item.rating >= "4"){
-                groundId.forEach((x) => {
-                    if(item._id.toString() == x){
-                        console.log('item/..', item)
-                        console.log('x/...', x)
-                    }
-                })
-            }
-        })
+        groundIds = [...new Set(groundIds)];
+
+        const grounds = await Ground.find({ _id: { $in: groundIds } });
+
+        const trendingGround = grounds.filter(item => item.rating >= 4);
+
+        // console.log("Trending Grounds: ", trendingGround);
         
-        return res.status(200).send({ message: "OK" })
+        return res.status(200).send({ message: "OK", trendingGround });
     } catch (error) {
-        console.log('error/...', error)
-        return res.status(500).send({ error: error.message })
+        console.log('Error: ', error);
+        return res.status(500).send({ error: error.message });
     }
 }
 
 exports.bookingValue = async (req, res) => {
     try {
     
-        
-        
+        const booking = await Booking.find({})
+        let groundIds = booking.map((item) => item.groundid )
+        groundIds = [...new Set(groundIds)]
+        const grounds = await Ground.find({ _id: { $in: groundIds } })
+
+        grounds.forEach((item) => {
+                        
+        })
+       
         return res.status(200).send({ message: "OK" })
     } catch (error) {
         console.log('error/...', error)

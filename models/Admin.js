@@ -83,10 +83,12 @@ adminSchema.methods.generateAuthToken = async function() {
     const admin = this
     const token = jwt.sign({_id: admin._id.toString()}, process.env.ADMIN_JWT_SECRET)
 
-    admin.tokens = admin.tokens.concat({token})
-    admin.lasttimeloggedin = new Date()
+    // admin.tokens = admin.tokens.concat({token})
+    // admin.lasttimeloggedin = new Date()
 
-    await admin.save()
+    admin.tokens = { token }
+    admin.lasttimeloggedin = new Date()
+    await admin.save ()
 
     return token
 }
