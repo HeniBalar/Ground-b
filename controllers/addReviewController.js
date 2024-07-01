@@ -38,8 +38,15 @@ exports.addReview = async(req, res) => {
             const r = new Review(data)
             await r.save()
             
-            let newrating = g.rating==="0" ? data.rate : (Number(data.rate)+Number(g.rating))/2
-            newrating = parseFloat(newrating.toFixed(1))
+            // let newrating = g.rating==="0" ? data.rate : (Number(data.rate)+Number(g.rating))/2
+            // newrating = parseFloat(newrating.toFixed(1))
+
+            const currentRating = parseFloat(g.rating) || 0;
+            const newRate = parseFloat(data.rate);
+
+            let newrating = currentRating === 0 ? newRate : (newRate + currentRating) / 2;
+            newrating = parseFloat(newrating.toFixed(1));
+
             const ground = await Ground.findByIdAndUpdate(gid,{rating: newrating},{new:true})
             await ground.addReview(r._id)
 
