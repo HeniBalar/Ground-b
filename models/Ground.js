@@ -1,4 +1,61 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
+
+const priceSchema = new mongoose.Schema([
+    {
+        weekday: {
+            type: String,
+            enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        },
+        start_time: {
+            type: String,
+            validate: {
+                validator: function(v) {
+                    return moment(v, 'HH:mm', true).isValid();
+                },
+                message: props => `${props.value} is not a valid time!`
+            }
+        },
+        end_time: {
+            type: String,
+            validate: {
+                validator: function(v) {
+                    return moment(v, 'HH:mm', true).isValid();
+                },
+                message: props => `${props.value} is not a valid time!`
+            }
+        },
+        price: {
+            type: Number
+        }
+    },
+    {
+        date: {
+            type: String
+        },
+        start_time: {
+            type: String,
+            validate: {
+                validator: function(v) {
+                    return moment(v, 'HH:mm', true).isValid();
+                },
+                message: props => `${props.value} is not a valid time!`
+            }
+        },
+        end_time: {
+            type: String,
+            validate: {
+                validator: function(v) {
+                    return moment(v, 'HH:mm', true).isValid();
+                },
+                message: props => `${props.value} is not a valid time!`
+            }
+        },
+        price: {
+            type: Number
+        }
+    }
+], { _id: false });
 
 const groundSchema = new mongoose.Schema({
 
@@ -32,7 +89,7 @@ const groundSchema = new mongoose.Schema({
         type: String,
     },
     price:{
-        type: String,
+        type: [priceSchema],
         required: true
     },
     address:{
