@@ -9,7 +9,7 @@ const { getOwnedGrounds } = require("../controllers/ground/getOwnedGroundsContro
 const ownerRouter = Router();
 
 
-ownerRouter.post("/addground", auth, upload.array('photos'), addGround)  //---
+ownerRouter.post("/addground", upload.array('photos'), addGround)  //---
 // ownerRouter.get("/getownergrounddetail/:id", auth, getOwnerGroundDetail)  
 // ownerRouter.get("/getownedgrounds", auth, getOwnedGrounds)
 ownerRouter.get("/getownergrounddetail/:id", getOwnerGroundDetail)

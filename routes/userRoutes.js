@@ -10,7 +10,7 @@ const userRouter = Router();
 
 
 userRouter.get("/getsingleground/:id", auth, getSingleGround)
-userRouter.post("/addreview", auth, addReview)
+userRouter.post("/addreview", addReview)
 userRouter.post("/bookground",auth, bookGround)
 userRouter.post("/createteam", auth, createTeam)
 userRouter.get("/getteamdetail/:id", auth, getTeam)

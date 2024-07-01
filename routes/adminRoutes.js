@@ -17,6 +17,7 @@ const { userDemographice } = require("../controllers/admin/adminGetuserDemograph
 const { auth } = require("../middleware/auth.js");
 const { totalBooking, bookingTrends, bookingValue } = require("../controllers/admin/adminShowbooking.js");
 const { topPerformingground, underPerformingground, venueRating } = require("../controllers/admin/adminShowgroundPerforming.js");
+const { totalRevenue, revenueGrowth, revenueBreakdown } = require("../controllers/admin/adminFinancialOverview.js");
 
 const adminRouter = Router();
 
@@ -54,5 +55,9 @@ adminRouter.post('/bookingvalue', bookingValue)
 adminRouter.post('/topperforming', topPerformingground)
 adminRouter.post('/underperforming', underPerformingground)
 adminRouter.post('/venuerating', venueRating)
+
+adminRouter.post('/totalrevenue', totalRevenue)
+adminRouter.post('/revenuegrowth', revenueGrowth)
+adminRouter.post('/revenuebreakdown', revenueBreakdown)
 
 module.exports = adminRouter;

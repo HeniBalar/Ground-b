@@ -119,9 +119,12 @@ exports.addGround = async(req, res) => {
            
             // console.log("sp..",sp)
 
+            let price = JSON.parse(req.body.price);
+            // console.log('Price:', price)
+
             let temp = {
                 ...data,
-                // price:pricearr,
+                price: price,
                 sport_type: sp,
                 facilities: fc,
                 ownerid: req.user._id,

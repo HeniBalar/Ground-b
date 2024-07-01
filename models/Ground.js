@@ -1,16 +1,71 @@
 const mongoose = require('mongoose');
 
-const groundSchema = new mongoose.Schema({
+const priceSchema = new mongoose.Schema([
+    {
+        weekday: {
+            type: String,
+            enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        },
+        start_time: {
+            type: String,
+            validate: {
+                validator: function(v) {
+                    return moment(v, 'HH:mm', true).isValid();
+                },
+                message: props => `${props.value} is not a valid time!`
+            }
+        },
+        end_time: {
+            type: String,
+            validate: {
+                validator: function(v) {
+                    return moment(v, 'HH:mm', true).isValid();
+                },
+                message: props => `${props.value} is not a valid time!`
+            }
+        },
+        price: {
+            type: Number
+        }
+    },
+    {
+        date: {
+            type: String
+        },
+        start_time: {
+            type: String,
+            validate: {
+                validator: function(v) {
+                    return moment(v, 'HH:mm', true).isValid();
+                },
+                message: props => `${props.value} is not a valid time!`
+            }
+        },
+        end_time: {
+            type: String,
+            validate: {
+                validator: function(v) {
+                    return moment(v, 'HH:mm', true).isValid();
+                },
+                message: props => `${props.value} is not a valid time!`
+            }
+        },
+        price: {
+            type: Number
+        }
+    }
+], { _id: false });
 
-    groundname:{
+const groundSchema = new mongoose.Schema({
+    groundname: {
         type: String,
         required: true
     },
-    location:{
+    location: {
         type: String,
         required: true
     },
-    country:{
+    country: {
         type: String,
         required: true
     },
@@ -18,90 +73,80 @@ const groundSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ownername:{
+    ownername: {
         type: String,
         required: true
     },
-    ownerid:{
-        type: mongoose.Schema.Types.ObjectId, ref:'User'
+    ownerid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
-    starttime:{
+    starttime: {
+        type: Date
+    },
+    endtime: {
+        type: Date
+    },
+    price: {
+        type: [priceSchema],
+        required: true
+    },
+    address: {
         type: String,
         required: true
     },
-    endtime:{
+    description: {
         type: String,
         required: true
     },
-    price:{
-        type: String,
-        required: true
+    rulesandregulation: {
+        type: String
     },
-    address:{
-        type: String,
-        required: true
-    },
-    description:{
-        type: String,
-        required: true
-    },
-    rulesandregulation:{
-        type: String,
-        required: true
-    },
-    rating:{
-        type: String,
-        default: 0
-    },
-    photos: [{
-        photoid:{
-          type: String,
-        },
-        photourl:{
-          type: String,
-        },
-        photothumbnail:{
-          type: String,
-        }
-    }],
-    nooftimebooked:{
+    rating: {
         type: Number,
         default: 0
     },
-    createdat:{
+    photos: [{
+        photoid: {
+            type: String
+        },
+        photourl: {
+            type: String
+        },
+        photothumbnail: {
+            type: String
+        }
+    }],
+    nooftimebooked: {
+        type: Number,
+        default: 0
+    },
+    createdat: {
         type: Date,
-        default: new Date()
+        default: Date.now
     },
     reviews: [{
-        type: mongoose.Schema.Types.ObjectId, ref:'Review'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
     }],
-    status:{
+    status: {
         type: String,
         default: "Pending"
     },
-    sport_type:[{
+    sport_type: [{
         type: String
     }],
-    facilities:[{
+    facilities: [{
         type: String
     }]
-})
-
+});
 
 groundSchema.methods.addReview = async function(id) {
+    this.reviews.push(id);
+    await this.save();
+    return this;
+};
 
-    const ground = this
+const Ground = mongoose.model('Ground', groundSchema);
 
-    let t = ground.reviews ? ground.reviews : []
-    t.push(id)
-
-    ground.reviews = t
-    await ground.save()
-    
-    return ground
-}
-
-
-const Ground = mongoose.model('Ground',groundSchema)
-
-module.exports = Ground
+module.exports = Ground;
