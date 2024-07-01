@@ -27,11 +27,9 @@ const groundSchema = new mongoose.Schema({
     },
     starttime:{
         type: String,
-        required: true
     },
     endtime:{
         type: String,
-        required: true
     },
     price:{
         type: String,
